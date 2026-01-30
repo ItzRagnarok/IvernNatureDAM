@@ -1,0 +1,56 @@
+@import url("comun.css");
+@import url("/parciales/cabecera.css");
+@import url("/parciales/footer.css");
+
+/* Estilos para la página del formulario */
+main {
+     /* Establece la fuente para toda la página */
+     /* Color de fondo para la página */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Altura completa de la ventana */
+}
+
+/* Estilos para el formulario */
+form {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    width: 300px;
+}
+
+main h1 {
+    text-align: center;
+    color: #333;
+}
+
+input[type="text"],
+input[type="file"] {
+    width: 100%; /* Ajusta la entrada al ancho del contenedor */
+    padding: 8px;
+    margin: 10px 0; /* Espacio arriba y abajo para cada input */
+    box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
+    border: 1px solid #ccc; /* Borde sutil */
+    border-radius: 4px; /* Bordes redondeados */
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #5cb85c; /* Color verde para acciones positivas */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #4cae4c; /* Un verde un poco más oscuro al hacer hover */
+}

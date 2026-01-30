@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ivern Nature</title>
+    <link rel="icon" href="/images/Logo.png">
+    <link rel="stylesheet" href="/css/index.css">
+<!--    <link rel="stylesheet" href="/css/cabecera.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header th:replace="cabeceraMenu :: cabeceraMenu">
+		
+    </header>
+    <main>
+        <section class="introduction">
+            <h2>¿Qué Somos?</h2>
+            <p>En Ivern Nature, nos dedicamos a la formación y educación en el ámbito agropecuario con un enfoque hacia la sostenibilidad y las nuevas tecnologías.</p>
+        </section>
+        <section class="features">
+            <div class="features-text">
+                <h2>Nuestros Servicios</h2>
+                <div class="service">
+                    <h3>Educación Online</h3>
+                    <p>Cursos y talleres virtuales para aprender sobre agricultura y ganadería sostenible.</p>
+                </div>
+                <div class="service">
+                    <h3>Asesorías Personalizadas</h3>
+                    <p>Obtén guía y asesoramiento directo de expertos en el sector agropecuario.</p>
+                </div>
+                <div class="service">
+                    <h3>Comunidad</h3>
+                    <p>Únete a nuestra comunidad para compartir conocimientos y experiencias con otros profesionales.</p>
+                </div>
+            </div>
+            <img th:src="@{/images/imgPortada.png}" alt="Campo Agropecuario" class="features-image">
+        </section>
+    </main>
+    <footer th:replace="footer :: footerPaginas">
+        
+    </footer> 
+</body>
+</html>

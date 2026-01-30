@@ -1,0 +1,298 @@
+@import url("comun.css");
+@import url("/parciales/cabecera.css");
+@import url("/parciales/footer.css");
+
+
+/* Estilización de la cabecera del curso */
+.cabeceraCurso {
+	background-color: #ffffff;
+	padding: 20px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	/* Distribuir espacio entre elementos */
+}
+
+.titCabeceraCurso {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.titCabeceraCurso h1 {
+	font-weight: bold;
+	font-size: 23px;
+	color: green;
+}
+
+/* Estilo del logo del curso */
+.curso-logo {
+	width: 80px;
+	height: 80px;
+	margin-right: 20px;
+	border-radius: 50%;
+}
+
+/* Configuración de las pestañas para flexibilidad */
+.tabs {
+	display: flex;
+}
+
+.tab {
+	padding: 10px 20px;
+	background-color: #e0e0e0;
+	border: none;
+	cursor: pointer;
+	font-size: 16px;
+	margin-left: 5px;
+}
+
+.tab:hover,
+.tab:focus {
+	background-color: #d0d0d0;
+	outline: none;
+}
+
+/* Estilización de las publicaciones y contenidos con flex */
+.publicaciones,
+.section {
+	background-color: #ffffff;
+	margin: 20px 0;
+	padding: 20px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	/* Organizar contenido verticalmente */
+}
+
+/* Lista de comentarios y contenidos */
+.lista-comentarios,
+.lista-contenidos {
+	list-style: none;
+	padding: 0;
+}
+
+/* Formulario para añadir comentarios, con flex */
+form {
+	display: flex;
+	justify-content: center;
+    align-items: center;
+	
+}
+
+h4 {
+	margin-top: 20px;
+	margin-bottom: -5px;
+}
+
+input[type="text"] {
+	flex-grow: 1;
+	/* Tomar el espacio disponible */
+	padding: 10px;
+	margin-right: 10px;
+	box-sizing: border-box;
+	/* Incluir padding y border en el ancho */
+}
+
+form button,
+.tab {
+	padding: 10px 20px;
+	background-color: #5cb85c;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+
+form button:hover,
+.tab:hover {
+	background-color: #007b5f;
+}
+
+/* Estilos específicos para elementos dentro de .section y .publicaciones */
+.publicaciones p,
+.section p {
+	margin: 5px 0;
+}
+
+/*Estilos boton eliminar curso*/
+form .deleteBtn {
+	background-color: #ff4d4d;
+	/* Rojo claro para indicar acción de eliminación */
+	color: white;
+	border: none;
+	padding: 8px 12px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	/*    font-size: 16px;*/
+	margin: 5px 2px;
+	cursor: pointer;
+	border-radius: 5px;
+	transition: background-color 0.3s ease;
+	align-self: center;
+}
+
+form .deleteBtn i {
+	color: white;
+	font-size: 13px;
+}
+
+form .deleteBtn:hover {
+	background-color: #ff0000;
+	/* Rojo más oscuro para el hover */
+}
+
+
+ .editbtn {
+	background-color: var(--verde-Pastel);
+	color: white;
+	border: none;
+	padding: 8px 11px;
+	height: 15px;
+	display: flex;
+	align-self: center;
+	text-align: center;
+	align-items: center;
+	text-decoration: none;
+/*	display: inline-block;*/
+	/*    font-size: 16px;*/
+	margin: 4px 2px;
+	cursor: pointer;
+	border-radius: 5px;
+	transition: background-color 0.3s ease;
+
+}
+
+.editbtn i {
+	color: white;
+	font-size: 13px;
+	align-self: center;
+}
+
+.editbtn:hover  {
+	background-color: var(--verde-Oscuro);
+	/* Rojo más oscuro para el hover */
+}
+
+
+/* Estilos del modal */
+.modal {
+	display: none;
+	/* Oculto por defecto */
+	position: fixed;
+	/* Fijo en la pantalla */
+	z-index: 2;
+	/* Encima de otros elementos */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* Ancho completo */
+	height: 100%;
+	/* Alto completo */
+	overflow: auto;
+	/* Habilita el desplazamiento si es necesario */
+	background-color: rgba(0, 0, 0, 0.6);
+	/* Fondo negro semitransparente */
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	/* Centrado y con margen superior */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%;
+	/* Ancho relativo */
+	max-width: 400px;
+	/* Ancho máximo */
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	/* Sombra para dar profundidad */
+	border-radius: 10px;
+	/* Bordes redondeados */
+}
+
+.modal-content h2 {
+	color: #333;
+	/* Color oscuro para el título */
+}
+
+.modal-content p {
+	color: #555;
+	/* Color más suave para el texto */
+}
+
+/* Estilización de botones */
+.modal-content button {
+	padding: 10px 20px;
+	border-radius: 5px;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	/* Transición suave al cambiar color */
+}
+
+#confirmDelete {
+	background-color: #f44336;
+	/* Verde para confirmar */
+	color: white;
+}
+
+#cancelDelete {
+	
+	background-color: #4CAF50;
+	/* Rojo para cancelar */
+	color: white;
+}
+
+.modal-content button:hover {
+	opacity: 0.8;
+	/* Efecto al pasar el mouse */
+}
+
+
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+}
+
+table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+table th, table td {
+    padding: 12px 15px;
+}
+
+table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #009879;
+    color: #ffffff;
+}
+
+.btn-primary {
+    background-color: #007bff;
+}
+

@@ -1,0 +1,202 @@
+@import url("comun.css");
+@import url("/parciales/cabecera.css");
+@import url("/parciales/footer.css");
+
+/* styles.css */
+
+
+.titulo h1 {
+    color: var(--verde-Oscuro);
+	margin-left: 150px;
+   
+}
+
+.tabla {
+	display: flex;
+/*	flex-direction: column;*/
+	justify-content: center;
+}
+
+main table {
+/*	display: flex;*/
+/*	flex-direction: column;*/
+/*	justify-content: center;*/
+    width: 80vw;
+    border-collapse: collapse;
+    margin: 20px;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+main th {
+    background-color: var(--verde-Pastel);
+    color: white;
+}
+
+main tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+td a {
+    text-decoration: none;
+    color: white;
+    background-color: var(--verde-Pastel);
+    padding: 8px 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+td button {
+	text-decoration: none;
+    color: white;
+    background-color: var(--verde-Pastel);
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+main button:hover, td a:hover,
+.modal .modal-content button:hover {
+    background-color: var(--verde-Oscuro);
+}
+
+main form {
+    display: inline;
+}
+
+main input[type="text"], input[type="email"], input[type="password"] {
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+main label {
+    display: block;
+}
+
+main form.edit-form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+}
+
+.modal .modal-content button {
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+/*    background-color: var(--verde-Pastel);*/
+/*    padding: 8px 16px;*/
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#confirmDelete {
+	background-color: #ff4d4d;
+}
+
+#confirmDelete:hover {
+	background-color: #ff0000;
+}
+
+#cancelDelete {
+	
+	background-color: #5cb85c;
+}
+
+#cancelDelete:hover {
+	background-color: #007b5f;
+	
+}
+
+
+/* Estilos básicos para centrar y mejorar la apariencia del formulario */
+.formulario-editar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 80%; /* Ajusta el ancho según tus necesidades */
+    max-width: 500px; /* Un ancho máximo para que no se vea muy ancho en pantallas grandes */
+}
+
+.formulario-editar h1 {
+	font-size: 25pxpx;
+	color: var(--verde-Oscuro);
+	
+}
+
+/* Estilos para los inputs y labels dentro del formulario */
+.formulario-editar label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333333;
+}
+
+.formulario-editar input[type="text"],
+.formulario-editar input[type="email"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px; /* Espacio después de cada input */
+}
+
+/* Estilo para el botón de guardar */
+.formulario-editar button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.formulario-editar button:hover {
+    background-color: var(--verde-Oscuro);
+}
+
+

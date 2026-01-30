@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Editar Usuario</title>
+	<link rel="icon" href="/images/Logo.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link rel="stylesheet" href="/css/usuarios.css">
+</head>
+
+<body>
+	<header th:replace="~{cabeceraMenu :: cabeceraMenu}">
+
+	</header>
+	<main>
+		
+		<form class="formulario-editar" th:action="@{/usuarios/actualizar}" method="post">
+			<h1>Editar Usuario</h1>
+			<input type="hidden" th:value="${usuario.idusuario}" name="idusuario" />
+			<div>
+				<label>Nombre de Usuario:</label>
+				<input type="text" th:value="${usuario.nombreUsuario}" name="nombreUsuario" />
+			</div>
+			<div>
+				<label>Email:</label>
+				<input type="email" th:value="${usuario.correoElectronico}" name="correoElectronico" />
+			</div>
+			<!-- Agregar más campos según sea necesario -->
+			<button type="submit">Guardar Cambios</button>
+		</form>
+
+	</main>
+	<footer th:replace="footer :: footerPaginas">
+
+	</footer>
+</body>
+
+</html>

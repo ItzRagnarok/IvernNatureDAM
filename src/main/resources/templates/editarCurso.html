@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Editar Curso</title>
+	<link rel="icon" href="/images/Logo.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link rel="stylesheet" href="/css/editaCurso.css">
+</head>
+
+<body>
+	<header th:replace="~{cabeceraMenu :: cabeceraMenu}">
+
+	</header>
+	<main>
+		<h1>Editar Curso</h1>
+		<form th:action="@{/cursos/actualizar/{id}(id=${curso.idcurso})}" method="post" enctype="multipart/form-data">
+			<input type="text" th:value="${curso.nombreGrupo}" name="nombreCurso" placeholder="Nombre del Curso" />
+			<input type="file" name="file" />
+			<button type="submit">Actualizar Curso</button>
+		</form>
+
+	</main>
+	<footer th:replace="footer :: footerPaginas">
+
+	</footer>
+</body>
+
+</html>

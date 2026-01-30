@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cursos</title>
+	<link rel="icon" href="/images/Logo.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link rel="stylesheet" href="/css/cursos.css">
+	<script src="https://kit.fontawesome.com/84019ec0ee.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+	<header th:replace="~{cabeceraMenu :: cabeceraMenu}">
+
+	</header>
+	<main>
+		<section>
+			<h1>Cursos</h1>
+			<article class="tCursos">
+				<div th:each="curso : ${cursos}">
+
+					<article>
+						<div class="cursos">
+							<div class="detalle-cursos">
+								<img th:src="@{'/images/cursos/' + ${curso.imagenUrl}}"
+									width="150" alt="Foto curso">
+								<h4 th:text="${curso.nombreGrupo}"> Grupo Agricultura </h4>
+								<button class="entrar" th:onclick="'window.location.href=\'/cursos/curso/' + ${curso.idcurso} + '\''"><i class="fa-solid fa-arrow-right"></i></button>
+							</div>
+						</div>
+					</article>
+
+				</div>
+				<button class="newCurso"><a th:href="@{/cursos/creaCurso}"><i class="fa-solid fa-plus"></i></a></button>
+
+			</article>
+		</section>
+	</main>
+	<footer th:replace="footer :: footerPaginas">
+
+	</footer>
+</body>
+
+</html>

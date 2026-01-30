@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Footer Paginas</title>
+</head>
+
+<body>
+	<footer class="footerPaginas" th:fragment="footerPaginas">
+		<div class="footer-container">
+			<div class="footer-section">
+				<h4>Acerca de Nosotros</h4>
+				<div class="cont">
+					<p>En Ivern Nature, nos dedicamos a la formación y educación en el ámbito agropecuario con un
+						enfoque hacia la sostenibilidad y las nuevas tecnologías.</p>
+				</div>
+			</div>
+			<div class="footer-section">
+				<h4>Enlaces Rápidos</h4>
+				<ul class="cont">
+					<li><a th:href="@{/}">Inicio</a></li>
+					<li><a th:href="@{/acercaDe}">Acerca de</a></li>
+					<li><a th:href="@{/cursos}">Cursos</a></li>
+					<li><a th:href="@{/contacto}">Contacto</a></li>
+				</ul>
+			</div>
+			<div class="footer-section">
+				<h4>Contacto</h4>
+				<div class="cont">
+					<p>Teléfono: +34 985 34 54 98</p>
+					<p>Email: info@ivernnature.com</p>
+				</div>
+			</div>
+			<div class="footer-section">
+				<h4>Síguenos</h4>
+				<div class="social-icons">
+					<a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+					<a href="https://x.com/"><i class="fab fa-twitter"></i></a>
+					<a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+					<a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
+				</div>
+			</div>
+		</div>
+
+	</footer>
+
+</body>
+
+</html>

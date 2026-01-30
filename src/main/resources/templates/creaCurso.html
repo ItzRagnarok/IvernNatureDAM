@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Crea Curso</title>
+	<link rel="icon" href="/images/Logo.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link rel="stylesheet" href="/css/creaCurso.css">
+</head>
+
+<body>
+	<header th:replace="~{cabeceraMenu :: cabeceraMenu}">
+
+	</header>
+	<main>
+		<section>
+			<h1>Crear Curso</h1>
+			<form th:action="@{/cursos/creaCurso}" th:object="${curso}" method="post" enctype="multipart/form-data">
+				<div class="labCurso">
+					<label for="nombreGrupo">Nombre del Curso:</label>
+					<input type="text" id="nombreGrupo" name="nombreGrupo" th:field="*{nombreGrupo}" required>
+				</div>
+				<div class="labCurso">
+					<label for="file">Imagen:</label>
+					<input type="file" id="file" name="file" required>
+				</div>
+				<div class="labCurso">
+					<button type="submit">Guardar</button>
+				</div>
+			</form>
+		</section>
+	</main>
+	<footer th:replace="footer :: footerPaginas">
+
+	</footer>
+</body>
+
+</html>

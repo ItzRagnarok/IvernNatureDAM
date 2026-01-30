@@ -1,0 +1,51 @@
+@import url("comun.css");
+@import url("/parciales/cabecera.css");
+@import url("/parciales/footer.css");
+
+/* body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #333;
+} */
+
+.introduction {
+    background: white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 1px 9px 5px 0px gray;
+}
+
+/* .introduction h2 {
+    text-decoration: underline;
+} */
+
+.features {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 1px 13px 5px 0px gray;
+}
+
+.features-text {
+    width: 50%;
+}
+
+.features-image {
+    width: 30%;
+    border-radius: 8px;
+    margin-right: 5%;
+}
+
+.service {
+    margin-top: 20px;
+}
+
+

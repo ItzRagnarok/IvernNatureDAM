@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Usuarios</title>
+	<link rel="icon" href="/images/Logo.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link rel="stylesheet" href="/css/usuarios.css">
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			var modal = document.getElementById("modalConfirmacion");
+			var confirmBtn = document.getElementById("confirmDelete");
+			var cancelBtn = document.getElementById("cancelDelete");
+
+			document.querySelectorAll('.deleteBtn').forEach(btn => {
+				btn.onclick = function (event) {
+					modal.style.display = "block";
+					confirmBtn.onclick = function () {
+						modal.style.display = "none";
+						// Aquí envías el formulario de eliminación
+						event.target.form.submit();
+					};
+					cancelBtn.onclick = function () {
+						modal.style.display = "none";
+					};
+				};
+			});
+
+			window.onclick = function (event) {
+				if (event.target === modal) {
+					modal.style.display = "none";
+				}
+			};
+		});
+	</script>
+
+</head>
+
+<body>
+	<header th:replace="~{cabeceraMenu :: cabeceraMenu}">
+
+	</header>
+	<main>
+		<div class="titulo">
+			<h1>Listado de Usuarios</h1>
+		</div>
+		<div class="tabla">
+			<table>
+				<thead>
+					<tr>
+						<th>Avatar</th>
+						<th>Nombre</th>
+						<th>Email</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="usuario : ${usuarios}">
+						<td><img th:src="@{${usuario.avatar}}" alt="Avatar"
+								style="width: 50px; height: 50px; border-radius: 50%;"></td>
+						<td th:text="${usuario.nombreUsuario}"></td>
+						<td th:text="${usuario.correoElectronico}"></td>
+						<td>
+							<a th:href="@{/usuarios/editar/{id}(id=${usuario.idusuario})}">Editar</a>
+							<form th:action="@{/usuarios/eliminar/{id}(id=${usuario.idusuario})}" method="post"
+								onsubmit="confirmarEliminacion(event)">
+								<button type="button" class="deleteBtn">Eliminar</button>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div id="modalConfirmacion" class="modal">
+				<div class="modal-content">
+					<h2>Confirmar Eliminación</h2>
+					<p>¿Estás seguro de que deseas eliminar este usuario?</p>
+					<button id="confirmDelete">Eliminar</button>
+					<button id="cancelDelete">Cancelar</button>
+				</div>
+			</div>
+
+		</div>
+	</main>
+	<footer th:replace="footer :: footerPaginas">
+
+	</footer>
+</body>
+
+</html>

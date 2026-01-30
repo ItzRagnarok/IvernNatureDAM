@@ -1,0 +1,150 @@
+@import url("/css/comun.css");
+header {
+    background: #007b5f;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; /* Añadido para controlar mejor el posicionamiento */
+    
+    
+}
+
+.logo-title {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    
+}
+
+.logo {
+    height: 50px;
+    margin-right: 10px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.main-nav {
+    position: absolute;
+    right: 100px; /* Incrementado para mover el menú más hacia la izquierda */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.main-nav ul li {
+    display: inline;
+    margin-left: 20px;
+}
+
+.main-nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* .user-icon {
+    position: absolute;
+    right: 20px; /* Separación respecto al borde derecho 
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 10px;
+}
+
+.user-icon a {
+    color: #fff;
+    font-size: 24px;
+} */
+
+
+.usu {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* margin-right: 100px; */
+}
+
+.user-icon{
+    width: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.submenu {
+    width: 100px;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding-top: 55px;
+    position: absolute;
+    top: 0;
+    /* margin-right: 50px; */
+    margin-top: 10px;
+}
+
+.logo:hover {
+    cursor: pointer;
+    /* filter: drop-shadow(15px 8px 15px var(--color-boton-background)) brightness(0.8); */
+}
+
+.submenu button {
+    /* background-color: var(--color-blue-grotto); */
+    border-color: transparent;
+    border-radius: 20px;
+    margin-bottom: 5px;
+    /* border-bottom: 2px solid var(--color-orange); */
+    border: 1px solid gray;
+    background: #007b5f;
+    color: white;
+    cursor: pointer;
+ 
+}
+
+.submenu button a {
+    text-decoration: none;
+    color: white;
+}
+
+.submenu button:hover {
+    background-color: #014a39;
+    color: white;
+}
+
+button:active {
+    transform: scale(.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+.oculto:hover {
+    transform: scaleY(100%);
+}
+
+button:hover {
+    background-color: gray;
+}
+
+.oculto {
+    transform: scaleY(0);
+    transition: transform .3s ease-in-out;
+}
+
+button:hover+.oculto {
+    transform: scaleY(100%);
+    transform-origin: bottom;
+}

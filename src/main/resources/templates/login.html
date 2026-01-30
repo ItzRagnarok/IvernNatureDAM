@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Inicio de Sesión</title>
+	<link rel="icon" href="/images/Logo.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link rel="stylesheet" href="/css/login.css">
+	<script type="module" src="/js/login.js"></script>
+</head>
+
+<body>
+	<header th:replace="~{cabeceraMenu :: cabeceraMenu}">
+
+	</header>
+	<main>
+		<section class="contenedor-forms">
+			<article class="contenedor-login">
+				<form th:action="@{/login/auth}" class="login" name="login" th:object="${usuario}" method="post">
+					<h2>Inicia sesión</h2>
+					<div class="grupo-entrada">
+						<input type="text" id="usuario" th:field="*{nombreUsuario}" required
+							data-error="Por favor introduzca su usuario">
+						<label for="usuario" id="lusuario">Usuario</label>
+					</div>
+
+					<div class="grupo-entrada">
+						<input type="password" id="clave" th:field="*{password}" required
+							data-error="Por favor introduzca su contraseña">
+						<label for="clave" id="lclave">Contraseña</label>
+					</div>
+
+					<div class="grupo-entrada">
+						<button class="bForm">Entrar</button>
+					</div>
+
+				</form>
+				<div class="mError" th:if="${mensaje}">
+					<p th:text="${mensaje}"></p>
+				</div>
+			</article>
+			<article class="contenedor-nuevo">
+				<form class="nuevo" name="formNewUser" id="formNewUser" th:action="@{/login/registro}"
+					th:object="${usuario}" method="post" enctype="multipart/form-data">
+					<h2>Crea tu cuenta</h2>
+					<div class="grupo-avatar">
+						<div class="grupo-entrada">
+							<input type="text" th:field="*{nombreUsuario}" required
+								data-error="Por favor introduce tu Nombre de Usuario">
+							<label for="nombreUsuario">Nombre de Usuario</label>
+						</div>
+
+						<div class="elige-avatar">
+							<label for="file_avatar">Avatar</label>
+							<input type="file" name="file_avatar" id="file_avatar" accept=".gif,.jpg,.png" />
+						</div>
+						<!-- Canvas para colocar la imagen del usuario -->
+						<canvas></canvas>
+					</div>
+
+					<div class="grupo-entrada">
+						<input type="text" th:field="*{nombreYApellidos}" required
+							data-error="Por favor introduce tus apellidos y nombre">
+						<label for="nombreYApellidos">Nombre y apellidos</label>
+					</div>
+
+					<div class="grupo-entrada">
+						<input type="email" th:field="*{correoElectronico}" required
+							data-error="Por favor introduce tu email">
+						<label for="correoElectronico">Email</label>
+					</div>
+
+					<div class="grupo-entrada">
+						<input type="password" th:field="*{password}" required
+							data-error="Por favor introduce tu contraseña">
+						<label for="password">Crea una contraseña</label>
+					</div>
+
+					<div class="grupo-entrada">
+						<input type="password" th:field="*{password2}" required
+							data-error="Por favor introduce tu contraseña">
+						<label for="password2">Repite la contraseña</label>
+					</div>
+
+					<div class="grupo-entrada boton">
+						<button type="submit" class="bForm" id="btnNewUser">Crear cuenta</button>
+					</div>
+					<div class="mensaje-db" th:if="${mensaje}" th:text="${mensaje}"></div>
+				</form>
+
+			</article>
+			<article class="velo">
+				<div class="velo-panel velo-izquierda">
+					<h2>¿Ya tienes cuenta?</h2>
+					<p>Inicia sesión con tus datos</p>
+					<button class="boton-panel bForm" id="btnIzquierda">Inicia sesión</button>
+				</div>
+				<div class="velo-panel velo-derecha">
+					<h2>¿No tienes cuenta?</h2>
+					<p>Completa el formulario para crear una cuenta.</p>
+					<button class="boton-panel bForm" id="btnDerecha">Crear cuenta</button>
+				</div>
+			</article>
+		</section>
+	</main>
+	<footer th:replace="footer :: footerPaginas">
+
+	</footer>
+</body>
+
+</html>
