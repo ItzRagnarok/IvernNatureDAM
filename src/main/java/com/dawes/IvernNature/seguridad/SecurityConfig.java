@@ -3,14 +3,13 @@ package com.dawes.IvernNature.seguridad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import com.dawes.IvernNature.servicio.interfaces.UsuarioService;
 
 
 @Configuration
@@ -19,32 +18,47 @@ import com.dawes.IvernNature.servicio.interfaces.UsuarioService;
 public class SecurityConfig {
 	
 	@Autowired
-    private UsuarioService usuarioService;	
+	private CustomUserDetailsService userDetailsService;
 	
 	@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                    .requestMatchers("/css/**", "/js/**", "/images/**", "/parciales/**", "/contenido-educativo/**").permitAll() // Permitir acceso a recursos estáticos
-                    .requestMatchers("/", "/index", "/cursos/**", "/login/**", "/login/**", "/usuarios/**", "/editar/**").permitAll() // Permitir acceso a estas rutas sin autenticación
-                    .anyRequest().authenticated() // Requiere autenticación para cualquier otra solicitud
-            )
+                .requestMatchers("/css/**", "/js/**", "/images/**", "/parciales/**", "/contenido-educativo/**").permitAll()
+                .requestMatchers("/", "/index", "/login/**", "/registro/**").permitAll()
+                .requestMatchers("/usuarios/**").hasAnyAuthority("ADMIN", "ROLE_ADMIN")
+                .anyRequest().authenticated())
             .formLogin(formLogin ->
                 formLogin
-                    .loginPage("/login") // Página de inicio de sesión personalizada
-                    .permitAll()
+                .loginPage("/login")
+                .usernameParameter("nombreUsuario")
+                .defaultSuccessUrl("/", true)
+                .permitAll()
             )
             .logout(logout ->
                 logout
-                    .permitAll()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .permitAll()
             );
+        
+        http.authenticationProvider(authenticationProvider());
+        
         return http.build();
     }
 
 	@Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+	
+	@Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
     }
 
 }

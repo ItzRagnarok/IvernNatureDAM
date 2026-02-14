@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
@@ -45,9 +47,9 @@ public class UsuarioVO {
 	private List<EventoVO> eventos;
 	@OneToMany(mappedBy = "usuario")
 	private List<TemaVO> temas;
-//	@ManyToOne
-//	@JoinColumn(name="idrol")
-//	private RolVO rol;
+	@ManyToOne
+	@JoinColumn(name="idrol")
+	private RolVO rol;
 	@OneToMany(mappedBy = "usuario")
 	private List<RespuestaVO> respuestas;
 
@@ -107,16 +109,16 @@ public class UsuarioVO {
 		this.temas = temas;
 	}
 
-//	public RolVO getRol() {
-//		return rol;
-//	}
-//
-//
-//
-//
-//	public void setRol(RolVO rol) {
-//		this.rol = rol;
-//	}
+	public RolVO getRol() {
+		return rol;
+	}
+
+
+
+
+	public void setRol(RolVO rol) {
+		this.rol = rol;
+	}
 
 	public String getPassword() {
 		return password;
@@ -158,13 +160,6 @@ public class UsuarioVO {
 		this.avatar = avatar;
 	}
 	
-
-	
-
-	// Constructor por defecto
-	public UsuarioVO() {
-	}
-
 
 	// Constructor con parámetros para facilitar la creación de instancias
     public UsuarioVO(int idusuario, String nombreUsuario, String correoElectronico, String nombreYApellidos, String password, String avatar) {

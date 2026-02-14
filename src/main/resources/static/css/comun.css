@@ -16,5 +16,14 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
+    
+    /* Sticky Footer Styles */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
 }
 
