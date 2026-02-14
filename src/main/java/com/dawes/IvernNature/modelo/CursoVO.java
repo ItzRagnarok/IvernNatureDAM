@@ -20,7 +20,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
@@ -103,7 +102,6 @@ public class CursoVO {
 	}
 
 	public CursoVO() {
-		super();
 		this.contenidos = new HashSet<>(); // Inicializa el Set en el constructor
 	}
 

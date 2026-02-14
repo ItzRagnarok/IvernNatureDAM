@@ -24,8 +24,13 @@
 		<div class="user-icon">
 			<button class="usu"><i class="fas fa-user"></i></button>
 			<div class="submenu oculto">
-				<button><a th:href="@{/usuarios}">Perfiles</a></button>
-				<button><a th:href="@{/login}">Iniciar sesión</a></button>
+				<button sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_ADMIN')"><a th:href="@{/usuarios}">Perfiles</a></button>
+								<button sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Iniciar sesión</a></button>
+								<button sec:authorize="isAuthenticated()">
+				                    <form th:action="@{/logout}" method="post" style="display:inline;">
+				                        <input type="submit" value="Cerrar sesión" style="background:none; border:none; cursor:pointer; font-family:inherit; font-size:inherit; color:inherit; width: 100%; text-align: center;"/>
+				                    </form>
+				                </button>
 			</div>
 		</div>
 	</header>

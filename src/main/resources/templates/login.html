@@ -18,7 +18,7 @@
 	<main>
 		<section class="contenedor-forms">
 			<article class="contenedor-login">
-				<form th:action="@{/login/auth}" class="login" name="login" th:object="${usuario}" method="post">
+				<form th:action="@{/login}" class="login" name="login" th:object="${usuario}" method="post">
 					<h2>Inicia sesión</h2>
 					<div class="grupo-entrada">
 						<input type="text" id="usuario" th:field="*{nombreUsuario}" required
@@ -37,6 +37,9 @@
 					</div>
 
 				</form>
+				<div class="mError" th:if="${param.error}">
+					<p>Usuario o contraseña incorrectos</p>
+				</div>
 				<div class="mError" th:if="${mensaje}">
 					<p th:text="${mensaje}"></p>
 				</div>
@@ -105,7 +108,7 @@
 			</article>
 		</section>
 	</main>
-	<footer th:replace="footer :: footerPaginas">
+	<footer th:replace="~{footer :: footerPaginas}">
 
 	</footer>
 </body>
