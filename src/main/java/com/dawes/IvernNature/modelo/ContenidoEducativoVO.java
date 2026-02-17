@@ -12,6 +12,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @AllArgsConstructor
 @Data
@@ -28,6 +30,8 @@ public class ContenidoEducativoVO {
 	@Column(unique = true)
 	private String url;
 
+	@ToString.Exclude
+    @EqualsAndHashCode.Exclude
 	@ManyToMany(mappedBy = "contenidos")
     private Set<CursoVO> cursos = new HashSet<>(); // Inicializa el Set
 	
