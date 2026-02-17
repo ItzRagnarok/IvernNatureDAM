@@ -18,7 +18,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @AllArgsConstructor
 @Data
@@ -34,9 +35,14 @@ public class CursoVO {
 	private String imagenUrl;
 	private LocalDate fechaInicio;
 	private LocalDate fechaFin;
+	
+	@ToString.Exclude
+    @EqualsAndHashCode.Exclude
 	@OneToMany(mappedBy = "curso", cascade = CascadeType.REMOVE)
 	private List<ParticipaVO> usuarios;
 
+	@ToString.Exclude
+    @EqualsAndHashCode.Exclude
 	@ManyToMany
     @JoinTable(
         name = "curso_contenido",
