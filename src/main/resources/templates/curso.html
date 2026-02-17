@@ -19,11 +19,11 @@
 					<img th:src="@{'/images/cursos/' + ${curso.imagenUrl}}" alt="Foto del curso" class="curso-logo">
 					<h1 th:text="${curso.nombreGrupo}">Nombre del Grupo</h1>
 
-					<a class="editbtn" th:href="@{/cursos/editar/{id}(id=${curso.idcurso})}">
+					<a sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_ADMIN')" class="editbtn" th:href="@{/cursos/editar/{id}(id=${curso.idcurso})}">
 						<i class="fa-solid fa-pen-to-square"></i>
 					</a>
 
-					<form th:action="@{/cursos/eliminar/{id}(id=${curso.idcurso})}" method="post"
+					<form sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_ADMIN')" th:action="@{/cursos/eliminar/{id}(id=${curso.idcurso})}" method="post"
 						style="display: inline;">
 						<button type="button" class="actionBtn deleteBtn">
 							<i class="fa-solid fa-trash-can"></i>
