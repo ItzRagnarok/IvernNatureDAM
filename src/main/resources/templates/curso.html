@@ -61,7 +61,7 @@
 
 			<article id="contenidos" class="section" style="display:none;">
 				<h2>Contenidos</h2>
-				<form th:action="@{/cursos/curso/{id}/agregarContenido(id=${curso.idcurso})}" method="post"
+				<form sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_ADMIN')" th:action="@{/cursos/curso/{id}/agregarContenido(id=${curso.idcurso})}" method="post"
 					enctype="multipart/form-data">
 					<input type="file" name="file">
 					<input type="text" name="titulo" placeholder="Título del contenido">
