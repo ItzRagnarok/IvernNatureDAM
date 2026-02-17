@@ -32,8 +32,17 @@ public class DataInitializer implements CommandLineRunner {
             rolAdmin = rolPersistance.save(rolAdmin);
             System.out.println("-> Rol ADMIN creado en la base de datos.");
         }
+        
+     // Buscamos si el rol ROLE_TEACHER ya existe
+        RolVO rolTeacher = rolPersistance.findByNombre("ROLE_TEACHER").orElse(null);
+        if (rolTeacher == null) {
+        	rolTeacher = new RolVO();
+        	rolTeacher.setNombre("ROLE_TEACHER");
+            rolPersistance.save(rolTeacher);
+            System.out.println("-> Rol ROLE_TEACHER creado en la base de datos.");
+        }
 
-        // Buscamos si el rol USER ya existe
+        // Buscamos si el rol ROLE_USER ya existe
         RolVO rolUser = rolPersistance.findByNombre("ROLE_USER").orElse(null);
         if (rolUser == null) {
             rolUser = new RolVO();
