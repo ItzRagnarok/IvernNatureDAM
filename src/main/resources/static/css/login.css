@@ -325,3 +325,32 @@ input[type=date]:focus {
     margin-bottom: 20px;
 	
 }
+
+/* --- Estilos para el Checkbox de Profesor --- */
+.grupo-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 95%;
+    margin: 10px auto 15px auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.grupo-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    /* Usa el color verde de tus botones para el check */
+    accent-color: #77dd77; 
+    margin: 0;
+}
+
+.grupo-checkbox label {
+    font-size: .9rem;
+    color: var(--color-label, #333); /* Usa tu variable o un gris oscuro por defecto */
+    cursor: pointer;
+    font-family: var(--fuente-texto);
+    /* Evitamos que el texto se seleccione al hacer doble clic rápido */
+    user-select: none; 
+}

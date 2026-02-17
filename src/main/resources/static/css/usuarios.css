@@ -199,4 +199,32 @@ main form.edit-form {
     background-color: var(--verde-Oscuro);
 }
 
+/* --- Botón de Crear Profesor (Admin) --- */
+.contenedor-crear-profesor {
+    display: flex;
+    justify-content: flex-end; /* Alinea el botón a la derecha */
+    width: 80vw; /* Mantiene el mismo ancho que la tabla */
+    margin: 10px auto 40px auto; /* Lo centra en la pantalla y le da espacio abajo */
+}
+
+.btn-crear {
+    text-decoration: none;
+    color: white;
+    background-color: var(--verde-Pastel);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold; /* Un poco de negrita para que destaque */
+    transition: background-color 0.3s ease;
+}
+
+.btn-crear:hover {
+    background-color: var(--verde-Oscuro);
+}
+
+.btn-crear i {
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+}
 

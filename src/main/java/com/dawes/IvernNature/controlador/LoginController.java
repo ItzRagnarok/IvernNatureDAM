@@ -49,14 +49,16 @@ public class LoginController {
 		// Cifrar la contraseña antes de guardarla
 		usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 
-		// Asignar rol por defecto ROLE_USER
-		Optional<RolVO> rolOp = rolService.findByNombre("ROLE_USER");
+		// Asignar rol dependiendo de si marcó el checkbox de profesor
+		String nombreRol = usuario.isEsProfesor() ? "ROLE_TEACHER" : "ROLE_USER";
+
+		Optional<RolVO> rolOp = rolService.findByNombre(nombreRol);
 		if (rolOp.isPresent()) {
 			usuario.setRol(rolOp.get());
 		} else {
 			// Crear rol si no existe (opcional, para robustez)
 			RolVO nuevoRol = new RolVO();
-			nuevoRol.setNombre("ROLE_USER");
+			nuevoRol.setNombre(nombreRol);
 			rolService.save(nuevoRol);
 			usuario.setRol(nuevoRol);
 		}
