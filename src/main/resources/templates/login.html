@@ -86,6 +86,11 @@
 							data-error="Por favor introduce tu contraseña">
 						<label for="password2">Repite la contraseña</label>
 					</div>
+					
+					<div sec:authorize="hasAnyAuthority('ADMIN')" class="grupo-checkbox">
+						<input type="checkbox" id="esProfesor" th:field="*{esProfesor}">
+						<label for="esProfesor">Registrar cuenta como Profesor</label>
+					</div>
 
 					<div class="grupo-entrada boton">
 						<button type="submit" class="bForm" id="btnNewUser">Crear cuenta</button>

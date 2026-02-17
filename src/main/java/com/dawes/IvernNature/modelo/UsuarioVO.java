@@ -41,6 +41,9 @@ public class UsuarioVO {
 	private String avatar;
 //	private MultipartFile avatar;
 	
+	@Transient
+	private boolean esProfesor; 
+	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	private List<ParticipaVO> cursos;
 	@OneToMany(mappedBy = "usuario")
@@ -158,6 +161,14 @@ public class UsuarioVO {
 
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+	
+	public boolean isEsProfesor() {
+	    return esProfesor;
+	}
+
+	public void setEsProfesor(boolean esProfesor) {
+	    this.esProfesor = esProfesor;
 	}
 	
 
