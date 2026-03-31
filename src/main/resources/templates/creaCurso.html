@@ -26,8 +26,9 @@
 					<label for="file">Imagen:</label>
 					<input type="file" id="file" name="file" required>
 				</div>
-				<div class="labCurso">
-					<button type="submit">Guardar</button>
+				<div class="contenedor-botones">
+					<button type="submit" class="btn-guardar">Crear Curso</button>
+					<a th:href="@{/cursos}" class="btn-cancelar">Cancelar</a>
 				</div>
 			</form>
 		</section>

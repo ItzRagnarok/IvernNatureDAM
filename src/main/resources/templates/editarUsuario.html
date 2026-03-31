@@ -15,7 +15,7 @@
 
 	</header>
 	<main>
-		
+
 		<form class="formulario-editar" th:action="@{/usuarios/actualizar}" method="post">
 			<h1>Editar Usuario</h1>
 			<input type="hidden" th:value="${usuario.idusuario}" name="idusuario" />
@@ -27,8 +27,11 @@
 				<label>Email:</label>
 				<input type="email" th:value="${usuario.correoElectronico}" name="correoElectronico" />
 			</div>
-			<!-- Agregar más campos según sea necesario -->
-			<button type="submit">Guardar Cambios</button>
+
+			<div class="contenedor-botones">
+				<button type="submit" class="btn-guardar">Guardar Cambios</button>
+				<a th:href="@{/usuarios}" class="btn-cancelar">Cancelar</a>
+			</div>
 		</form>
 
 	</main>
