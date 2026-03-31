@@ -228,3 +228,50 @@ main form.edit-form {
     margin-right: 8px; /* Espacio entre el icono y el texto */
 }
 
+/* Contenedor para alinear los botones lado a lado */
+.contenedor-botones {
+    display: flex;
+    justify-content: center; /* Centra los botones en el formulario */
+    gap: 15px; /* Añade un espacio estético entre los dos botones */
+    margin-top: 25px;
+}
+
+/* Estilo para el botón principal (Verde) */
+.btn-guardar {
+    background-color: #4CAF50; /* Usa el tono de verde exacto de tu página */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px; /* Bordes ligeramente redondeados como en tu foto */
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-guardar:hover {
+    background-color: #3e8e41; /* Verde más oscuro al pasar el ratón */
+}
+
+/* Estilo para el botón secundario (Cancelar - Sutil) */
+.btn-cancelar {
+    background-color: rgb(255, 45, 45);
+    color: white;
+    padding: 10px 20px;
+    border: 1px solid #cccccc; /* Borde gris sutil */
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none; /* Quita el subrayado del enlace */
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.btn-cancelar:hover {
+    background-color: rgb(206, 0, 0); /* Fondo gris muy claro al pasar el ratón */
+    color: white;
+    border-color: #999999;
+}
+

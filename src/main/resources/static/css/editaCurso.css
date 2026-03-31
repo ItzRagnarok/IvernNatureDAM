@@ -21,7 +21,8 @@ form {
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     border-radius: 8px;
-    width: 300px;
+    width: 400px;
+/*    height: 300px;*/
 }
 
 main h1 {
@@ -54,3 +55,52 @@ form button {
 form button:hover {
     background-color: #4cae4c; /* Un verde un poco más oscuro al hacer hover */
 }
+
+/* Contenedor para alinear los botones lado a lado */
+.contenedor-botones {
+    display: flex;
+    justify-content: center; /* Centra los botones en el formulario */
+    gap: 15px; /* Añade un espacio estético entre los dos botones */
+    margin-top: 25px;
+}
+
+/* Estilo para el botón principal (Verde) */
+.btn-guardar {
+    background-color: #4CAF50; /* Usa el tono de verde exacto de tu página */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px; /* Bordes ligeramente redondeados como en tu foto */
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-guardar:hover {
+    background-color: #3e8e41; /* Verde más oscuro al pasar el ratón */
+}
+
+/* Estilo para el botón secundario (Cancelar - Sutil) */
+.btn-cancelar {
+    background-color: rgb(255, 45, 45);
+    color: white;
+    padding: 10px 20px;
+    border: 1px solid #cccccc; /* Borde gris sutil */
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none; /* Quita el subrayado del enlace */
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.btn-cancelar:hover {
+    background-color: rgb(206, 0, 0); /* Fondo gris muy claro al pasar el ratón */
+    color: white;
+    border-color: #999999;
+}
+
+
