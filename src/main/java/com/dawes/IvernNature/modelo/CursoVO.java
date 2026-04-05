@@ -40,6 +40,9 @@ public class CursoVO {
     @EqualsAndHashCode.Exclude
 	@OneToMany(mappedBy = "curso", cascade = CascadeType.REMOVE)
 	private List<ParticipaVO> usuarios;
+	
+	@OneToMany(mappedBy = "curso", cascade = CascadeType.ALL) 
+	private List<QuizzVO> quizzes;
 
 	@ToString.Exclude
     @EqualsAndHashCode.Exclude

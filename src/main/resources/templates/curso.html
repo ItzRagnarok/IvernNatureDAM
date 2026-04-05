@@ -19,13 +19,16 @@
 					<img th:src="@{'/images/cursos/' + ${curso.imagenUrl}}" alt="Foto del curso" class="curso-logo">
 					<h1 th:text="${curso.nombreGrupo}">Nombre del Grupo</h1>
 
-					<a sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_TEACHER')" class="editbtn" th:href="@{/cursos/editar/{id}(id=${curso.idcurso})}">
+					<a sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_TEACHER')" class="editbtn"
+						th:href="@{/cursos/editar/{id}(id=${curso.idcurso})}">
 						<i class="fa-solid fa-pen-to-square"></i>
 					</a>
 
-					<form sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_TEACHER')" th:action="@{/cursos/eliminar/{id}(id=${curso.idcurso})}" method="post"
+					<form sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_TEACHER')"
+						th:action="@{/cursos/eliminar/{id}(id=${curso.idcurso})}" method="post"
 						style="display: inline;">
-						<button type="button" class="actionBtn deleteBtn">
+						<button type="button" class="actionBtn deleteBtn btn-modal-borrar"
+							data-mensaje="¿Estás seguro de que deseas eliminar este curso?">
 							<i class="fa-solid fa-trash-can"></i>
 						</button>
 					</form>
@@ -33,6 +36,7 @@
 				<div class="tabs">
 					<button class="tab" onclick="showSection('publicaciones')">Publicaciones</button>
 					<button class="tab" onclick="showSection('contenidos')">Contenidos Educativos</button>
+					<button class="tab" onclick="showSection('quizz')">Quizz</button>
 				</div>
 			</article>
 
@@ -61,7 +65,8 @@
 
 			<article id="contenidos" class="section" style="display:none;">
 				<h2>Contenidos</h2>
-				<form sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_TEACHER')" th:action="@{/cursos/curso/{id}/agregarContenido(id=${curso.idcurso})}" method="post"
+				<form sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_TEACHER')"
+					th:action="@{/cursos/curso/{id}/agregarContenido(id=${curso.idcurso})}" method="post"
 					enctype="multipart/form-data">
 					<input type="file" name="file">
 					<input type="text" name="titulo" placeholder="Título del contenido">
@@ -73,6 +78,7 @@
 							<th>Tipo</th>
 							<th>Título</th>
 							<th>Descargar</th>
+							<th sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_TEACHER')">Acciones</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -83,21 +89,82 @@
 							</td>
 							<td th:text="${contenido.titulo}">Título del Contenido</td>
 							<td>
-								<a th:href="@{/cursos/descargar/{idContenido}(idContenido=${contenido.idcontenidoeducativo})}" download th:text="'Descargar - ' + ${contenido.url}">Descargar</a>
+								<a th:href="@{/cursos/descargar/{idContenido}(idContenido=${contenido.idcontenidoeducativo})}"
+									download th:text="'Descargar - ' + ${contenido.url}">Descargar</a>
+							</td>
+							<td sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_TEACHER')">
+								<form
+									th:action="@{/cursos/curso/{idCurso}/contenido/{idContenido}/eliminar(idCurso=${curso.idcurso}, idContenido=${contenido.idcontenidoeducativo})}"
+									method="post" style="display: inline;">
+									<button type="button" class="btn-modal-borrar"
+										data-mensaje="¿Estás seguro de eliminar este archivo?"
+										style="background: none; border: none; color: #e74c3c; cursor: pointer; font-size: 1.2em;"
+										title="Eliminar Contenido">
+										<i class="fa-solid fa-trash-can"></i>
+									</button>
+								</form>
 							</td>
 						</tr>
 					</tbody>
 				</table>
-				
+
+			</article>
+
+			<article id="quizz" class="section" style="display:none;">
+				<h2>Minijuegos Clínicos</h2>
+
+				<form sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_TEACHER')"
+					th:action="@{/cursos/curso/{id}/crearQuizz(id=${curso.idcurso})}" method="post">
+					<input type="text" name="titulo" placeholder="Título del minijuego (Ej: Plagas de Primavera)"
+						required>
+					<button type="submit">Crear Minijuego</button>
+				</form>
+
+				<table>
+					<thead>
+						<tr>
+							<th>Título del Minijuego</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="quizz : ${curso.quizzes}">
+							<td th:text="${quizz.titulo}">Título del Quizz</td>
+							<td>
+								<a th:href="@{/cursos/quizz/{idQuizz}/jugar(idQuizz=${quizz.idquizz})}"
+									style="color: #2ecc71; text-decoration: none; font-weight: bold; margin-right: 15px;">
+									<i class="fa-solid fa-gamepad"></i> Jugar
+								</a>
+
+								<a sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_TEACHER')"
+									th:href="@{/cursos/quizz/{idQuizz}/casos(idQuizz=${quizz.idquizz})}"
+									style="color: #3498db; text-decoration: none; margin-right: 15px;">
+									<i class="fa-solid fa-list"></i> Ver/Añadir Casos
+								</a>
+
+								<form sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_TEACHER')"
+									th:action="@{/cursos/quizz/{idQuizz}/eliminar(idQuizz=${quizz.idquizz})}"
+									method="post" style="display: inline;">
+									<button type="button" class="btn-modal-borrar"
+										data-mensaje="¿Estás seguro de borrar TODO el minijuego y sus plagas?"
+										style="background: none; border: none; color: #e74c3c; cursor: pointer; font-size: 1.1em;"
+										title="Eliminar Minijuego">
+										<i class="fa-solid fa-trash-can"></i> Eliminar
+									</button>
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</article>
 
 			<!-- Modal -->
 			<div id="modalConfirmacion" class="modal">
 				<div class="modal-content">
 					<h2>Confirmar Eliminación</h2>
-					<p>¿Estás seguro de que deseas eliminar este curso?</p>
-					<button id="confirmDelete">Eliminar</button>
-					<button id="cancelDelete">Cancelar</button>
+					<p id="modalMensaje">¿Estás seguro de que deseas eliminar este elemento?</p>
+					<button id="confirmDelete" class="btn-eliminar">Eliminar</button>
+					<button id="cancelDelete" class="btn-cancelar">Cancelar</button>
 				</div>
 			</div>
 		</section>
@@ -121,28 +188,49 @@
 			var modal = document.getElementById("modalConfirmacion");
 			var confirmBtn = document.getElementById("confirmDelete");
 			var cancelBtn = document.getElementById("cancelDelete");
-			var deleteForm = null;
+			var mensajeParrafo = document.getElementById("modalMensaje");
+			var formToSubmit = null; // Guardará el formulario que hay que enviar
 
-			document.querySelectorAll('.deleteBtn').forEach(btn => {
+			// Escuchamos a TODOS los botones que abren el modal
+			document.querySelectorAll('.btn-modal-borrar').forEach(btn => {
 				btn.addEventListener('click', function (event) {
-					event.preventDefault();
+					event.preventDefault(); // Evitamos que envíe el formulario aún
+
+					// Guardamos el formulario que pertenece al botón clicado
+					formToSubmit = this.closest('form');
+
+					// Leemos el mensaje personalizado del botón y lo ponemos en el modal
+					var textoDeseado = this.getAttribute('data-mensaje');
+					if (textoDeseado) {
+						mensajeParrafo.textContent = textoDeseado;
+					} else {
+						mensajeParrafo.textContent = "¿Estás seguro de que deseas eliminar este elemento?"; // Texto por defecto
+					}
+
+					// Mostramos el modal
 					modal.style.display = "block";
-					deleteForm = this.closest('form');
 				});
 			});
 
+			// Si hace clic en Eliminar (Rojo)
 			confirmBtn.addEventListener('click', function () {
 				modal.style.display = "none";
-				if (deleteForm) deleteForm.submit();
+				if (formToSubmit) {
+					formToSubmit.submit(); // ¡Ahora sí enviamos el formulario!
+				}
 			});
 
+			// Si hace clic en Cancelar (Verde)
 			cancelBtn.addEventListener('click', function () {
 				modal.style.display = "none";
+				formToSubmit = null; // Limpiamos la variable por si acaso
 			});
 
+			// Si hace clic fuera del modal
 			window.onclick = function (event) {
 				if (event.target === modal) {
 					modal.style.display = "none";
+					formToSubmit = null;
 				}
 			};
 		});

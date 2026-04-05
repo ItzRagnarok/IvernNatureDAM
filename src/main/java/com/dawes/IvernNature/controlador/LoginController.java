@@ -40,6 +40,7 @@ public class LoginController {
 	public String registrarUsuario(@ModelAttribute UsuarioVO usuario,
 			@RequestParam("file_avatar") MultipartFile avatarFile, RedirectAttributes redirectAttrs)
 			throws IOException {
+
 		// Verificar que las contraseñas coincidan
 		if (!usuario.getPassword().equals(usuario.getPassword2())) {
 			redirectAttrs.addFlashAttribute("mensaje", "Las contraseñas no coinciden.");
@@ -56,32 +57,32 @@ public class LoginController {
 		if (rolOp.isPresent()) {
 			usuario.setRol(rolOp.get());
 		} else {
-			// Crear rol si no existe (opcional, para robustez)
+			// Crear rol si no existe
 			RolVO nuevoRol = new RolVO();
 			nuevoRol.setNombre(nombreRol);
 			rolService.save(nuevoRol);
 			usuario.setRol(nuevoRol);
 		}
 
+		// --- CAMBIOS DE LA IMAGEN ---
 		if (!avatarFile.isEmpty()) {
 			String fileName = avatarFile.getOriginalFilename();
-			String uploadDir = "src/main/resources/static/images/perfil/";
-			// Nota: Guardar en src/main/resources no es ideal para producción, pero
-			// funciona para dev local si se refresca Eclipse/IDE.
-			// Mejor usar una ruta externa o configurar addResourceHandlers.
-			// Mantengo la lógica original pero ajusto la ruta si es necesario.
-			// La lógica original era "/images/perfil/" asumiendo que es una ruta absoluta o
-			// relativa al sistema de archivos.
-			// Vamos a usar una ruta absoluta segura o relativa al proyecto para evitar
-			// errores de permisos en C:/.
+
+			// NUEVA RUTA FÍSICA: Guardamos en la carpeta unificada 'uploads'
+			String uploadDir = "uploads/usuario-fotos/";
 			Path uploadPath = Paths.get(uploadDir);
+
 			if (!Files.exists(uploadPath)) {
 				Files.createDirectories(uploadPath);
 			}
+
 			try (var inputStream = avatarFile.getInputStream()) {
 				Path filePath = uploadPath.resolve(fileName);
 				Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-				usuario.setAvatar("/images/perfil/" + fileName);
+
+				// NUEVA RUTA URL: Tiene que coincidir con la regla de nuestro WebConfig
+				usuario.setAvatar("/usuario-fotos/" + fileName);
+
 			} catch (IOException e) {
 				e.printStackTrace();
 				redirectAttrs.addFlashAttribute("mensaje", "Error al subir la imagen del avatar.");
@@ -89,7 +90,10 @@ public class LoginController {
 			}
 
 		} else {
-			usuario.setAvatar("/images/default/avatar.jpg"); // Ruta a la imagen predeterminada
+			// Si no sube nada, le dejamos la imagen por defecto.
+			// Como esta imagen no cambia nunca, sí puede quedarse en la carpeta 'static'
+			// del proyecto
+			usuario.setAvatar("/images/default/avatar.jpg");
 		}
 
 		usuarioService.save(usuario);

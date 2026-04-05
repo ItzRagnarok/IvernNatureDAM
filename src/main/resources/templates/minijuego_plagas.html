@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Minijuego - Clínica anti Plagas</title>
+
+	<link rel="stylesheet" th:href="@{/css/minijuego_plagas.css}">
+</head>
+
+<body>
+
+	<nav class="top-bar">
+		<button class="btn-exit" onclick="window.history.back()">← Salir</button>
+
+		<div class="score-board">
+			<div class="score-item success-score">
+				✅ Aciertos: <span id="score-count">0</span>
+			</div>
+			<div class="score-item error-score">
+				❌ Fallos: <span id="fail-count">0</span>
+			</div>
+		</div>
+	</nav>
+
+	<div class="main-container">
+		<h1>Clínica anti Plagas</h1>
+		<p>Identifica el problema visualmente y arrastra la solución.</p>
+
+		<div class="game-board">
+			<div class="tools-container">
+				<div class="tool" draggable="true" data-type="insecticida">
+					Insecticida
+				</div>
+				<div class="tool" draggable="true" data-type="fungicida">
+					Fungicida
+				</div>
+				<div class="tool" draggable="true" data-type="abono">
+					Abono NPK
+				</div>
+				<div class="tool" draggable="true" data-type="agua">
+					Riego Extra
+				</div>
+			</div>
+
+			<div class="plant-container" id="drop-zone">
+				<img src="" alt="Cargando caso..." class="plant-image" id="case-image">
+				<div class="diagnosis-text" id="case-text">Cargando minijuego...</div>
+			</div>
+		</div>
+
+		<div class="feedback-area">
+			<div id="message-box"></div>
+			<button id="btn-next" class="btn-primary hidden">Siguiente Caso</button>
+		</div>
+	</div>
+
+	<script th:inline="javascript">
+		const idQuizzActual = /*[[${idQuizzActual}]]*/ 1;
+	</script>
+
+	<script th:src="@{/js/minijuego_plagas.js}"></script>
+
+</body>
+
+</html>
