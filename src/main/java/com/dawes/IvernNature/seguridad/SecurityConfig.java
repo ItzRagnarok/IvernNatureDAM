@@ -20,6 +20,12 @@ public class SecurityConfig {
 	@Autowired
 	private CustomUserDetailsService userDetailsService;
 	
+	@Autowired
+	private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
+	@Autowired
+	private CustomAccessDeniedHandler customAccessDeniedHandler;
+	
 	@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -36,11 +42,16 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/", true)
                 .permitAll()
             )
+            .exceptionHandling(exceptionHandling ->
+            exceptionHandling
+            .authenticationEntryPoint(customAuthenticationEntryPoint)
+            .accessDeniedHandler(customAccessDeniedHandler)           
+        )
             .logout(logout ->
                 logout
+                .permitAll()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
-                .permitAll()
             );
         
         http.authenticationProvider(authenticationProvider());
