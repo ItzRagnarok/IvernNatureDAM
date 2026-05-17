@@ -11,5 +11,15 @@ public class WebApplication {
     public String home(Model model) {
         return "index";
     }
+    
+    @GetMapping("/acercaDe")
+    public String acercaDe() {
+        return "index";
+    }
+
+    @GetMapping("/contacto")
+    public String contacto() {
+        return "index";
+    }
 
 }
