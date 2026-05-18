@@ -148,3 +148,80 @@ button:hover+.oculto {
     transform: scaleY(100%);
     transform-origin: bottom;
 }
+
+/* ========== BOTÓN HAMBURGUESA (oculto en escritorio) ========== */
+.menu-toggle {
+    display: none;                    /* Oculto en pantallas grandes */
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+/* ========== RESPONSIVE (móvil) ========== */
+@media (max-width: 768px) {
+
+    /* Permitir que el header cree una nueva línea abajo para el menú */
+    header {
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .logo-title {
+        order: 1; /* Primer elemento a la izquierda */
+    }
+
+    /* Cambiamos de posición absoluta a flujo normal de Flexbox */
+    .menu-toggle {
+        display: block;
+        position: static !important;   /* Quitamos el absoluto que causaba el fallo */
+        transform: none !important;    /* Quitamos el centrado viejo */
+        order: 2;                      /* Va en medio de la fila superior */
+        margin-left: auto;             /* ¡Truco mágico! Empuja la hamburguesa y el usuario a la derecha */
+        margin-right: 20px;            /* Separación respecto al icono de usuario */
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 1.8rem;
+        cursor: pointer;
+    }
+
+    /* Icono de usuario: mantenerlo al extremo derecho junto a la hamburguesa */
+    header .user-icon {
+        order: 3;                      /* Último elemento de la fila superior */
+        position: static !important;            
+        margin-left: 0 !important;     /* El espacio ya lo genera automáticamente el menu-toggle */
+    }
+
+    /* Navegación: se desplegará limpiamente en una segunda línea (order 4) */
+    header .main-nav {
+        position: static !important;  
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        background: #007b5f;
+        transition: max-height 0.3s ease;
+        order: 4;                      /* Se posiciona abajo del todo al abrirse */
+        
+        /* Reseteos obligatorios heredados de escritorio */
+        transform: none !important;   
+        top: auto !important;
+        right: auto !important;
+    }
+
+    header .main-nav.active {
+        max-height: 500px !important; /* Permite expandir la caja al activarse */
+    }
+
+    header .main-nav ul {
+        flex-direction: column;
+        padding: 15px 0;
+        margin: 0;
+    }
+
+    header .main-nav ul li {
+        margin: 10px 0;
+        text-align: center;
+    }
+}

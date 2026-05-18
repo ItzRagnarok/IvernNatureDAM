@@ -1,40 +1,92 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<meta charset="UTF-8">
-	<title>Fragmento de Menú</title>
+    <meta charset="UTF-8">
+    <title>Fragmento de Menú</title>
+    <!-- Asegúrate de que Font Awesome esté disponible (ya lo tienes en el index, pero aquí no sobra) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
-
 <body>
-	<header th:fragment="cabeceraMenu">
-		<div class="logo-title">
-			<a th:href="@{/}"><img th:src="@{/images/Logo.png}" alt="Ivern Nature Logo" class="logo"></a>
-			<h1>Ivern Nature</h1>
-		</div>
-		<nav class="main-nav">
-			<ul>
-				<li><a th:href="@{/}">Inicio</a></li>
-				<li><a th:href="@{/acercaDe}">Acerca de</a></li>
-				<li><a th:href="@{/cursos}">Cursos</a></li>
-				<li><a th:href="@{/contacto}">Contacto</a></li>
-			</ul>
-		</nav>
+    <header th:fragment="cabeceraMenu">
+        <div class="logo-title">
+            <a th:href="@{/}"><img th:src="@{/images/Logo.png}" alt="Ivern Nature Logo" class="logo"></a>
+            <h1>Ivern Nature</h1>
+        </div>
 
-		<div class="user-icon">
-			<button class="usu"><i class="fas fa-user"></i></button>
-			<div class="submenu oculto">
-				<button sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_ADMIN')"><a th:href="@{/usuarios}">Perfiles</a></button>
-								<button sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Iniciar sesión</a></button>
-								<button sec:authorize="isAuthenticated()">
-				                    <form th:action="@{/logout}" method="post" style="display:inline;">
-				                        <input type="submit" value="Cerrar sesión" style="background:none; border:none; cursor:pointer; font-family:inherit; font-size:inherit; color:inherit; width: 100%; text-align: center;"/>
-				                    </form>
-				                </button>
-			</div>
-		</div>
-	</header>
+        <!-- BOTÓN HAMBURGUESA AÑADIDO -->
+        <button class="menu-toggle" aria-label="Abrir menú">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <nav class="main-nav">
+            <ul>
+                <li><a th:href="@{/}">Inicio</a></li>
+                <li><a th:href="@{/acercaDe}">Acerca de</a></li>
+                <li><a th:href="@{/cursos}">Cursos</a></li>
+                <li><a th:href="@{/contacto}">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <div class="user-icon">
+            <button class="usu"><i class="fas fa-user"></i></button>
+            <div class="submenu oculto">
+                <button sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_ADMIN')"><a th:href="@{/usuarios}">Perfiles</a></button>
+                <button sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Iniciar sesión</a></button>
+                <button sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post" style="display:inline;">
+                        <input type="submit" value="Cerrar sesión" style="background:none; border:none; cursor:pointer; font-family:inherit; font-size:inherit; color:inherit; width: 100%; text-align: center;"/>
+                    </form>
+                </button>
+            </div>
+        </div>
+		<!-- SCRIPT PARA EL TOGGLE DEL MENÚ Y SUBMENÚ -->
+		<script>
+		            const toggleBtn = document.querySelector('.menu-toggle');
+		            const mainNav = document.querySelector('.main-nav');
+
+		            console.log("--> [OK] Botón hamburguesa encontrado:", toggleBtn);
+		            console.log("--> [OK] Menú de navegación encontrado:", mainNav);
+
+		            if (toggleBtn && mainNav) {
+		                toggleBtn.addEventListener('click', function(e) {
+		                    e.preventDefault();
+		                    
+		                    // ESTE LOG TE DIRÁ SI EL CLIC REALMENTE ENTRA
+		                    console.log("¡Hiciste clic en el botón hamburguesa!");
+		                    
+		                    mainNav.classList.toggle('active');
+		                    
+		                    // ESTE LOG TE DIRÁ SI LA CLASE SE ESTÁ AÑADIENDO AL HTML
+		                    console.log("Clases actuales del menú después del clic:", mainNav.className);
+		                });
+
+		                const navLinks = document.querySelectorAll('.main-nav a');
+		                navLinks.forEach(link => {
+		                    link.addEventListener('click', () => {
+		                        mainNav.classList.remove('active');
+		                    });
+		                });
+		            } else {
+		                console.error("ERROR: No se han encontrado los elementos del menú en el DOM.");
+		            }
+
+		            // Submenú de usuario
+		            const userBtn = document.querySelector('.usu');
+		            const submenu = document.querySelector('.submenu');
+		            if (userBtn && submenu) {
+		                userBtn.addEventListener('click', function(e) {
+		                    e.stopPropagation();
+		                    submenu.classList.toggle('oculto');
+		                });
+		                document.addEventListener('click', function() {
+		                    submenu.classList.add('oculto');
+		                });
+		                submenu.addEventListener('click', function(e) {
+		                    e.stopPropagation();
+		                });
+		            }
+		        </script>
+    </header>
 </body>
-
 </html>
