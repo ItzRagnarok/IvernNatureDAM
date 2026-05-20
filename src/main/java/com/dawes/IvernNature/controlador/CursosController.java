@@ -23,19 +23,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dawes.IvernNature.modelo.CasoQuizzVO;
 import com.dawes.IvernNature.modelo.ContenidoEducativoVO;
 import com.dawes.IvernNature.modelo.CursoVO;
+import com.dawes.IvernNature.modelo.MensajeChatVO;
 import com.dawes.IvernNature.modelo.QuizzVO;
+import com.dawes.IvernNature.modelo.UsuarioVO;
 import com.dawes.IvernNature.servicio.implementacion.FileTypeUtils;
 import com.dawes.IvernNature.servicio.interfaces.CasoQuizzService;
 import com.dawes.IvernNature.servicio.interfaces.ContenidoEducativoService;
 import com.dawes.IvernNature.servicio.interfaces.CursoService;
 import com.dawes.IvernNature.servicio.interfaces.QuizzService;
 import com.dawes.IvernNature.servicio.interfaces.RespuestaService;
+import com.dawes.IvernNature.servicio.interfaces.UsuarioService;
 
 @Controller
 @RequestMapping("/cursos")
@@ -53,6 +57,8 @@ public class CursosController {
 	private QuizzService quizzService;
 	@Autowired
 	private CasoQuizzService casoQuizzService;
+	@Autowired
+	private UsuarioService usuarioService;
 
 	@GetMapping(value = "")
 	String cursos(Model model) {
@@ -104,16 +110,19 @@ public class CursosController {
 
 	@GetMapping(value = "/curso/{id}")
 	public String verCurso(@PathVariable("id") int idCurso, Model model) {
-		CursoVO curso = cursoService.findById(idCurso).orElse(null);
-		if (curso != null) {
-			model.addAttribute("curso", curso);
-			model.addAttribute("comentarios", respuestaService.cargarComentarios());
-			model.addAttribute("archivos", contenidoEducativoService.cargarContenidosEducativosPorCurso(idCurso));
-			model.addAttribute("fileTypeUtils", fileTypeUtils);
-			return "curso";
-		} else {
-			return "404";
-		}
+	    CursoVO curso = cursoService.findById(idCurso).orElse(null);
+	    if (curso != null) {
+	        model.addAttribute("curso", curso);
+	        // Chat del curso (usando el nuevo servicio)
+	        model.addAttribute("mensajes", respuestaService.obtenerComentariosPorCurso(curso));
+	        // Archivos/contenido del curso
+	        model.addAttribute("archivos", contenidoEducativoService.cargarContenidosEducativosPorCurso(idCurso));
+	        // Utilidad para tipos de archivo (imagen, pdf, etc.)
+	        model.addAttribute("fileTypeUtils", fileTypeUtils);
+	        return "curso";
+	    } else {
+	        return "404";
+	    }
 	}
 
 	@GetMapping("/cursos/curso/{id}/contenido")
@@ -244,11 +253,27 @@ public class CursosController {
 	    
 	    return "redirect:/cursos/curso/" + idCurso;
 	}
-
-	@PostMapping("/comentar")
-	public String comentar(@RequestParam String comentario, Model model) {
-		respuestaService.guardarComentario(comentario);
-		return "redirect:/";
+	
+	@GetMapping("/curso/{id}/mensajes")
+	@ResponseBody
+	public List<MensajeChatVO> obtenerMensajes(@PathVariable("id") int idCurso) {
+	    CursoVO curso = cursoService.findById(idCurso)
+	            .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
+	    return respuestaService.obtenerComentariosPorCurso(curso);
+	}
+	
+	@PostMapping("/curso/{id}/comentar")
+	@ResponseBody
+	public MensajeChatVO enviarMensaje(@PathVariable("id") int idCurso,
+	                                   @RequestParam String texto) {
+	    CursoVO curso = cursoService.findById(idCurso)
+	            .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
+	    UsuarioVO autor = usuarioService.getUsuarioActual();
+	    System.out.println("DEBUG: Autor obtenido: " + (autor != null ? autor.getNombreUsuario() : "NULL"));
+	    System.out.println("DEBUG: Texto: " + texto);
+	    MensajeChatVO mensaje = respuestaService.guardarComentarioCurso(curso, autor, texto);
+	    System.out.println("DEBUG: Mensaje guardado con ID: " + mensaje.getId());
+	    return mensaje;
 	}
 
 	@PostMapping("/eliminar/{id}")

@@ -36,8 +36,11 @@
 					</article>
 
 				</div>
-				<button sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_TEACHER')" class="newCurso"><a th:href="@{/cursos/creaCurso}"><i class="fa-solid fa-plus"></i></a></button>
-
+				<!--<button sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_TEACHER')" class="newCurso">-->
+					<a th:href="@{/cursos/creaCurso}" sec:authorize="hasAnyAuthority('ADMIN', 'ROLE_TEACHER')" class="newCurso">
+						<i class="fa-solid fa-plus"></i>
+					</a>
+				<!--</button>-->
 			</article>
 		</section>
 	</main>
