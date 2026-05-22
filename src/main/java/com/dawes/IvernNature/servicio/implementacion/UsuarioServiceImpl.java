@@ -1,31 +1,23 @@
 package com.dawes.IvernNature.servicio.implementacion;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.dawes.IvernNature.dto.RegistroUsuarioDTO;
 import com.dawes.IvernNature.modelo.UsuarioVO;
 import com.dawes.IvernNature.repositorio.UsuarioPersistance;
 import com.dawes.IvernNature.servicio.interfaces.UsuarioService;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService  {
@@ -195,7 +187,24 @@ public class UsuarioServiceImpl implements UsuarioService  {
 		usuarioPersitance.deleteAll();
 	}
 
-	
+	@Override
+	public UsuarioVO getUsuarioActual() {
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    if (auth == null || !auth.isAuthenticated() || auth instanceof AnonymousAuthenticationToken) {
+	        return null;
+	    }
+	    String identificador = auth.getName();
+	    // Intenta primero como nombre de usuario
+	    UsuarioVO usuario = usuarioPersitance.findByNombreUsuario(identificador);
+	    if (usuario == null) {
+	        // Si no, intenta como correo electrónico
+	        usuario = usuarioPersitance.findByCorreoElectronico(identificador).orElse(null);
+	    }
+	    if (usuario == null) {
+	        throw new RuntimeException("Usuario no encontrado: " + identificador);
+	    }
+	    return usuario;
+	}
 
 	
 }

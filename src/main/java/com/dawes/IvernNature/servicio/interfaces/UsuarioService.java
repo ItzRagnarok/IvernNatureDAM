@@ -78,4 +78,5 @@ public interface UsuarioService {
 
 	void deleteAll();
 
+	UsuarioVO getUsuarioActual();
 }
