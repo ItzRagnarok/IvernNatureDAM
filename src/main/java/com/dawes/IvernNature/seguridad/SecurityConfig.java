@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/parciales/**", "/contenido-educativo/**", "/error").permitAll()
                 .requestMatchers("/", "/index", "/login/**", "/registro/**").permitAll()
                 .requestMatchers("/cursos").permitAll()
+                .requestMatchers("/cursos/curso/**").authenticated()
                 .requestMatchers("/usuarios/**").hasAnyAuthority("ADMIN", "ROLE_ADMIN")
                 .anyRequest().authenticated())
             .formLogin(formLogin ->
@@ -56,6 +57,7 @@ public class SecurityConfig {
             );
         
         http.authenticationProvider(authenticationProvider());
+        http.csrf().disable(); // ¡Solo para desarrollo!
         
         return http.build();
     }

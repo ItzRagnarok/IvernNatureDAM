@@ -12,7 +12,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 import org.springframework.stereotype.Service;
 
+import com.dawes.IvernNature.modelo.CursoVO;
+import com.dawes.IvernNature.modelo.MensajeChatVO;
 import com.dawes.IvernNature.modelo.RespuestaVO;
+import com.dawes.IvernNature.modelo.UsuarioVO;
+import com.dawes.IvernNature.repositorio.MensajeChatRepository;
 import com.dawes.IvernNature.repositorio.RespuestaPersistance;
 import com.dawes.IvernNature.servicio.interfaces.RespuestaService;
 
@@ -20,6 +24,9 @@ import com.dawes.IvernNature.servicio.interfaces.RespuestaService;
 public class RespuestaServiceImpl implements RespuestaService  {
 	@Autowired
 	private RespuestaPersistance respuestaPersistance;
+	
+	@Autowired
+    private MensajeChatRepository mensajeChatRepository;
 	
 	 @Override
 	public List<RespuestaVO> cargarComentarios() {
@@ -187,6 +194,18 @@ public class RespuestaServiceImpl implements RespuestaService  {
 		respuestaPersistance.deleteAll();
 	}
 	
-	
+	@Override
+    public MensajeChatVO guardarComentarioCurso(CursoVO curso, UsuarioVO autor, String texto) {
+        MensajeChatVO mensaje = new MensajeChatVO();
+        mensaje.setCurso(curso);
+        mensaje.setAutor(autor);
+        mensaje.setTexto(texto);
+        return mensajeChatRepository.save(mensaje);
+    }
+
+    @Override
+    public List<MensajeChatVO> obtenerComentariosPorCurso(CursoVO curso) {
+        return mensajeChatRepository.findByCursoOrderByFechaAsc(curso);
+    }
 
 }

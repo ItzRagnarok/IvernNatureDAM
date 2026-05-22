@@ -10,11 +10,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 
+import com.dawes.IvernNature.modelo.CursoVO;
+import com.dawes.IvernNature.modelo.MensajeChatVO;
 import com.dawes.IvernNature.modelo.RespuestaVO;
+import com.dawes.IvernNature.modelo.UsuarioVO;
 
 public interface RespuestaService {
 
 	List<RespuestaVO> cargarComentarios();
+	
+    MensajeChatVO guardarComentarioCurso(CursoVO curso, UsuarioVO autor, String texto);
+    
+    List<MensajeChatVO> obtenerComentariosPorCurso(CursoVO curso);
 
 	void guardarComentario(String texto);
 

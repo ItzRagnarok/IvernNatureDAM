@@ -49,19 +49,63 @@
 			</div>
 
 			<article id="publicaciones" class="section" style="display:block;">
-				<h2>Chat</h2>
-				<div class="comentarios">
-					<ul class="lista-comentarios">
-						<li th:each="comentario : ${respuestas}">
-							<p th:text="${comentario.texto}">Texto del comentario</p>
-						</li>
-					</ul>
-					<form th:action="@{/comentar}" method="post">
-						<input type="text" name="comentario" placeholder="Escribe un comentario...">
-						<button type="submit">Enviar</button>
-					</form>
-				</div>
+			    <h2>Chat</h2>
+			    <div class="comentarios">
+			        <div id="chat-mensajes" style="height: 300px; overflow-y: auto; border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+			            <!-- Los mensajes se cargarán aquí dinámicamente -->
+			        </div>
+			        <form id="form-mensaje">
+			            <input type="text" id="comentario" name="comentario" placeholder="Escribe un comentario..." required>
+			            <button type="submit">Enviar</button>
+			        </form>
+			    </div>
 			</article>
+
+			<script th:inline="javascript">
+			    const cursoId = /*[[${curso.idcurso}]]*/ 0;
+
+			    function cargarMensajes() {
+			        fetch(`/cursos/curso/${cursoId}/mensajes`)
+			            .then(res => res.json())
+			            .then(mensajes => {
+			                const contenedor = document.getElementById('chat-mensajes');
+			                contenedor.innerHTML = '';
+			                if (mensajes.length === 0) {
+			                    contenedor.innerHTML = '<p>No hay mensajes aún. ¡Sé el primero en escribir!</p>';
+			                    return;
+			                }
+			                mensajes.forEach(msg => {
+			                    const div = document.createElement('div');
+			                    div.innerHTML = `<strong>${msg.autor.nombreUsuario || msg.autor.email}:</strong> ${msg.texto} 
+			                                     <small style="color:gray;">${new Date(msg.fecha).toLocaleString()}</small>`;
+			                    contenedor.appendChild(div);
+			                });
+			                contenedor.scrollTop = contenedor.scrollHeight;
+			            });
+			    }
+
+			    document.getElementById('form-mensaje').addEventListener('submit', function(e) {
+			        e.preventDefault();
+			        const texto = document.getElementById('comentario').value.trim();
+			        if (!texto) return;
+
+			        fetch(`/cursos/curso/${cursoId}/comentar`, {
+			            method: 'POST',
+			            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			            body: new URLSearchParams({ texto: texto })
+			        })
+			        .then(res => {
+			            if (res.ok) {
+			                document.getElementById('comentario').value = '';
+			                cargarMensajes(); // recargar inmediatamente
+			            }
+			        });
+			    });
+
+			    // Polling cada 3 segundos
+			    setInterval(cargarMensajes, 3000);
+			    cargarMensajes(); // carga inicial
+			</script>
 
 			<article id="contenidos" class="section" style="display:none;">
 				<h2>Contenidos</h2>
