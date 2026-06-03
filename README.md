@@ -27,7 +27,7 @@ El sistema está diseñado con un sistema de autorización basado en 4 niveles d
 ![Panel de Alumno / Cursos](https://github.com/user-attachments/assets/1649e9f6-1bd8-4e5b-997e-54417f0e0706)
 
 *Panel de Administración CRUD*
-![Panel de Administración CRUD](https://github.com/user-attachments/assets/5474083f-6d44-44ac-8549-a9ef497d2fc4)
+![Panel de Administración CRUD](https://github.com/user-attachments/assets/112ad859-8681-448a-83db-db0c03bbc5aa)
 
 ## 🚀 Instalación y Despliegue en Local
 
